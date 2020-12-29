@@ -6,7 +6,7 @@ export default makeStyles(_ =>(
             borderBottom: '10px solid black'
         },
         expense: {
-            borderBottom: '10px solid black'
+            borderBottom: '10px solid red'
         }
     }
 ))

@@ -6,7 +6,7 @@ export const Details = ({ title }) => {
     const classes = useStyles()
 
     return (
-        <Card className={classes.income}>
+        <Card className={title == 'Income' ? classes.income : classes.expense}>
             <CardHeader title={title}> </CardHeader>
             <CardContent>
                 <Typography variant='h5'>520</Typography>
