@@ -1,37 +1,34 @@
 import React, { useContext } from 'react';
-import { List as MUIList, ListItem, ListItemAvatar, ListItemText, Avatar, ListItemSecondaryAction, IconButton, Slide } from '@material-ui/core';
+import { List as MUIList, ListItem, ListItemAvatar, Avatar, ListItemText, ListItemSecondaryAction, IconButton, Slide } from '@material-ui/core';
 import { Delete, MoneyOff } from '@material-ui/icons';
-import useStyle from './listStyle';
+
 import { ExpenseTrackerContext } from '../../../../context/context';
-
-
+import useStyles from './listStyle';
 
 export const List = () => {
-    const classes = useStyle();
-    const { deleteTransaction, transactions} = useContext(ExpenseTrackerContext);
+  const classes = useStyles();
+  const { transactions, deleteTransaction } = useContext(ExpenseTrackerContext);
+  console.log('jj',transactions)
 
-        console.log(transactions)
-
-    return (
-        <MUIList dense={false} className={classes.list}>
-            {transactions.map(transaction =>(
-            <Slide direction='down' in mountOnEnter unmountOnExit key={transaction.id}>
-                <ListItem>
-                    <ListItemAvatar>
-                        <Avatar className={transaction.type == 'Income'? classes.avatarIncome: classes.avatarExpense}>
-                            <MoneyOff/>
-                        </Avatar>
-                    </ListItemAvatar>
-                    <ListItemText primary={transaction.category} secondary={`$${transaction.amount}-${transaction.date}`}/>
-                    <ListItemSecondaryAction>
-                        <IconButton edge='end' aria-label="delete" onClick=''>
-                            <Delete/>
-                        </IconButton>
-                    </ListItemSecondaryAction>
-                </ListItem>
-
-            </Slide>)
-            )}
-        </MUIList>
-    )
-}
+  return (
+    <MUIList dense={false} className={classes.list}>
+      {transactions.map((transaction) => (
+        <Slide direction="down" in mountOnEnter unmountOnExit key={transaction.id}>
+          <ListItem>
+            <ListItemAvatar>
+              <Avatar className={transaction[0].type === 'Ingresos' ? classes.avatarIncome : classes.avatarExpense}>
+                <MoneyOff />
+              </Avatar>
+            </ListItemAvatar>
+            <ListItemText primary={transaction[0].category} secondary={`$${transaction[0].amount} - ${transaction[0].date}`} />
+            <ListItemSecondaryAction>
+              <IconButton edge="end" aria-label="delete" onClick={() => deleteTransaction(transaction[0].id)}>
+                <Delete />
+              </IconButton>
+            </ListItemSecondaryAction>
+          </ListItem>
+        </Slide>
+      ))}
+    </MUIList>
+  );
+};

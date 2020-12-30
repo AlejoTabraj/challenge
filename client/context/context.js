@@ -16,12 +16,14 @@ export const Provider = ({ children }) => {
     
     console.log('nono', transactions)
 
-
+    const balance = transactions.reduce((acc, curVal) =>  (curVal[0].type == 'Gastos'?  acc - curVal[0].amount : acc + curVal[0].amount), 0)
+    console.log('blssss', balance)
     return (
         <ExpenseTrackerContext.Provider value={{
             deleteTransaction,
             addTransaction,
-            transactions
+            transactions,
+            balance
         }}>
             {children}
         </ExpenseTrackerContext.Provider>
