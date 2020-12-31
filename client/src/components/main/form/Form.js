@@ -1,9 +1,10 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { TextField, MenuItem, Typography, Grid, Button, FormControl, InputLabel, Select, MeniItem } from '@material-ui/core';
 import useStyle from './formStyle';
 import { v4 as uuidv4 } from 'uuid';
-import { incomeCategories, expenseCategories } from '../../categories/Categories'
-import { ExpenseTrackerContext } from '../../../../context/context.js'
+import axios from 'axios';
+import { incomeCategories, expenseCategories } from '../../categories/Categories';
+import { ExpenseTrackerContext } from '../../../../context/context.js';
 
 const initialState = {
     amount: '',
@@ -26,6 +27,16 @@ export const Form = () => {
 
     const selectedCategories = formData.type === 'Ingresos'? incomeCategories: expenseCategories;
 
+    useEffect(  ()=> {
+        console.log('object')
+       const stateIni = axios.get('https://3002-ae087c0a-3b15-4b2d-915e-5ef50368f8a7.ws-us03.gitpod.io/gastos')
+                            .then(data => {
+                                const dd = data.data
+                                console.log('llolo',data.data)
+                                addTransaction(dd)
+                                return data}).catch(err => err)  
+       console.log('llllll', stateIni);
+    },[])
     return (
         <Grid container spacing={2}>
             <Grid item xs={12}>
