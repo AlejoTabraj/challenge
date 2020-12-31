@@ -32,10 +32,8 @@ export const Form = () => {
        const stateIni = axios.get('https://3002-ae087c0a-3b15-4b2d-915e-5ef50368f8a7.ws-us03.gitpod.io/gastos')
                             .then(data => {
                                 const dd = data.data
-                                console.log('llolo',data.data)
                                 addTransaction(dd)
                                 return data}).catch(err => err)  
-       console.log('llllll', stateIni);
     },[])
     return (
         <Grid container spacing={2}>
